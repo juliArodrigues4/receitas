@@ -130,7 +130,8 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
+        backgroundColor: '#fff'
     },
     header: {
         position: 'absolute',
@@ -138,7 +139,7 @@ const styles = StyleSheet.create({
         height: 150,
         width: '100%',
         padding: 8,
-        backgroundColor: 'lightblue',
+        backgroundColor: '#FF8C00',
     },
     align: {
         justifyContent: 'center',
@@ -147,7 +148,7 @@ const styles = StyleSheet.create({
     texto: {
         textAlign: 'center',
         fontSize: 25,
-        color: 'lightblack',
+        color: '#fff',
         textAlignVertical: 'center'
     },
     nome: {
@@ -161,7 +162,7 @@ const styles = StyleSheet.create({
         borderLeftWidth: 1,
         borderBottomWidth: 3,
         borderRightWidth: 3,
-        borderColor: 'lightblue',
+        borderColor: '#FF8C00',
         margin: 5,
         paddingTop: 1,
         paddingRight: 8,
@@ -171,7 +172,7 @@ const styles = StyleSheet.create({
         width: '70%',
         height: 40,
         borderRadius: 10,
-        backgroundColor: 'lightblue',
+        backgroundColor: '#FF8C00',
         marginTop: 15,
         
     },

@@ -8,14 +8,15 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 
 const AlterarPlaneta = () => {
     const route = useRoute();
-    const { id, nome: initialNome, numeroLuas: initialNumeroLuas, url: initialUrl } = route.params;
+    const { id, nome: initialNome, ing: initialIng, prep: initialPrep, url: initialUrl } = route.params;
     const [nome, setNome] = useState<string>(initialNome);
-    const [numeroLuas, setNumeroLuas] = useState<string>(String(initialNumeroLuas));
+    const [ing, setIng] = useState<string>(String(initialIng));
+    const [prep, setPrep] = useState<string>(String(initialPrep));
     const [image, setImage] = useState<string>(initialUrl);
 
     const navigation = useNavigation();
 
-    async function uploadImage(nome: string, numeroLuas: string, uri: string, fileType: string, id: string): Promise<void> {
+    async function uploadImage(nome: string, ing: string, prep: string, uri: string, fileType: string, id: string): Promise<void> {
         const response = await fetch(uri);
         const blob = await response.blob();
         const storageRef = ref(storage, new Date().toISOString());
@@ -29,17 +30,18 @@ const AlterarPlaneta = () => {
             },
             async () => {
                 const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-                await updateRecord(id, nome, numeroLuas, fileType, downloadURL);
+                await updateRecord(id, nome, ing, prep, fileType, downloadURL);
                 setImage(downloadURL);
             }
         );
     }
 
-    async function updateRecord(id: string, nome: string, numeroLuas: string, fileType: string, url: string): Promise<void> {
+    async function updateRecord(id: string, nome: string, ing: string, prep: string, fileType: string, url: string): Promise<void> {
         try {
-            await updateDoc(doc(fire, "universo", id), {
+            await updateDoc(doc(fire, "receitas", id), {
                 nome,
-                numeroLuas,
+                ing,
+                prep,
                 fileType,
                 url,
                 updatedAt: new Date().toISOString(),
@@ -58,7 +60,7 @@ const AlterarPlaneta = () => {
         });
         if (!result.canceled && result.assets) {
             setImage(result.assets[0].uri);
-            await uploadImage(nome, numeroLuas, result.assets[0].uri, "img", id);
+            await uploadImage(nome, ing, prep, result.assets[0].uri, "img", id);
         }
     }
 
@@ -76,10 +78,15 @@ const AlterarPlaneta = () => {
             />
             <TextInput 
                 style={styles.nome2} 
-                placeholder="N° de Luas" 
-                value={numeroLuas} 
-                onChangeText={setNumeroLuas}
-                keyboardType="numeric"
+                placeholder="Ingredientes" 
+                value={ing} 
+                onChangeText={setIng}
+            />
+            <TextInput 
+                style={styles.nome2} 
+                placeholder="Ingredientes" 
+                value={prep} 
+                onChangeText={setPrep}
             />
             <TouchableOpacity onPress={handlePickImage}>
                 <Image
@@ -87,7 +94,7 @@ const AlterarPlaneta = () => {
                     style={styles.image}
                 />
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => updateRecord(id, nome, numeroLuas, "img", image)}>
+            <TouchableOpacity onPress={() => updateRecord(id, nome, ing, prep, "img", image)}>
                 <Text>Salvar Alterações</Text>
             </TouchableOpacity>
         </View>
@@ -100,6 +107,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         padding: 8,
+        backgroundColor: '#fff'
     },
     nome: {
         fontSize: 16,

@@ -217,9 +217,9 @@ const styles = StyleSheet.create({
     btns: {
         width: 'auto',
         position: 'absolute',
-        right: "40%",
+        right: "7%",
         bottom: 5,
-        flexDirection: 'row',
+        flexDirection: 'column',
         marginTop: 15
     },
     itemContainer: {
@@ -244,7 +244,7 @@ const styles = StyleSheet.create({
         width: 200,
         height: 'auto',
         padding: 8,
-        backgroundColor: 'lightblue',
+        backgroundColor: '#FF8C00',
         margin: 5,
         borderRadius: 20,
         justifyContent: 'center',
@@ -253,10 +253,14 @@ const styles = StyleSheet.create({
     container: {
         justifyContent: 'center',
         alignItems: 'center',
+        backgroundColor: '#fff'
+
     },
     all: {
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 45
+        marginTop: 45,
+        backgroundColor: '#fff'
+
     }
 });
